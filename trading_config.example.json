@@ -1,0 +1,23 @@
+{
+  "execution": {
+    "dry_run": true
+  },
+  "ibkr": {
+    "paper_trading": true,
+    "host": "127.0.0.1",
+    "port": 4002,
+    "account": "YOUR_ACCOUNT_ID"
+  },
+  "aws": {
+    "region": "us-east-1",
+    "profile": "default",
+    "sqs_queue_paper": "https://sqs.us-east-1.amazonaws.com/YOUR_ACCOUNT/trading-paper-signals.fifo",
+    "sqs_queue_live": "https://sqs.us-east-1.amazonaws.com/YOUR_ACCOUNT/trading-live-signals.fifo"
+  },
+  "risk": {
+    "max_positions": 10,
+    "max_weight_per_position": 0.30,
+    "min_price": 1,
+    "max_price": 500
+  }
+}

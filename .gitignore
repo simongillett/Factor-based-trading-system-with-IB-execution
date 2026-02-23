@@ -1,0 +1,51 @@
+# Dependencies
+.venv/
+venv/
+trading_env/
+nasdaq-env/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Secrets & Credentials
+*.pem
+*.key
+.env
+config.ini
+trading_config.json
+
+# Databases (large files)
+*.db
+*.duckdb
+FMP_Databases/
+
+# Logs
+logs/
+*.log
+
+# Results & Data
+results/
+backups/
+*.csv
+*.json
+!package.json
+
+# IB/Trading specific
+IBKR Desktop/
+Jts/
+ibc/
+
+# IDE
+.idea/
+.vscode/
+
+# External SDKs
+NasdaqCloudDataService-SDK-Python/
+NasdaqDataLink/
+OpenBB/
+
+# Zipline bundle data
+zipline-factor-backtest/.zipline/
+zipline-factor-backtest/venv/
+zipline-factor-backtest/results/
+zipline-factor-backtest/logs/
