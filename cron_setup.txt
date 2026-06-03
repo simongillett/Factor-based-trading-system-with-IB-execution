@@ -1,0 +1,14 @@
+# Cron Setup for Automated Trading
+# Add these entries to your crontab with: crontab -e
+
+# FMP price data update
+0 6 * * * cd /home/simon0099/Lodon/FMP_Databases && /home/simon0099/Lodon/.venv/bin/python3 daily_update.py >> daily_update.log 2>&1
+
+# Weekly backtest + metrics update
+0 20 * * 0 /home/simon0099/Lodon/zipline-factor-backtest/run_weekly_backtest.sh >> /home/simon0099/Lodon/zipline-factor-backtest/logs/weekly_backtest.log 2>&1
+
+# IB Gateway healthcheck
+0 9 * * 1-5 /home/simon0099/Lodon/ibgateway_healthcheck.sh
+
+# Generate signals + execute trades at market open
+30 9 * * 1-5 cd /home/simon0099/Lodon && /home/simon0099/Lodon/trading_env/bin/python daily_trade.py >> logs/daily_trade.log 2>&1

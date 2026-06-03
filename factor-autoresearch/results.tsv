@@ -1,0 +1,48 @@
+sharpe	cagr_pct	max_dd_pct	status	description
+0.795	12.49	-20.81	keep	baseline: IC-weighted rank-norm, 14 factors, top_n=100, fwd=5d
+1.217	37.68	-42.82	keep	forward_days=20 (monthly horizon)
+0.952	21.44	-29.4	discard	forward_days=10 (biweekly)
+3.114	185.29	-45.98	keep	forward_days=40
+3.987	418.95	-51.83	keep	forward_days=60
+3.97	490.37	-60.56	discard	forward_days=60 top_n=50
+3.716	389.99	-60.62	discard	forward_days=60 top_n=200
+4.568	572.52	-48.7	keep	add momentum factors (3m 6m 12m) - 21 factors
+5.19	1022.02	-52.54	keep	forward_days=80
+5.657	2022.05	-57.44	keep	forward_days=120
+5.955	2218.78	-55.22	keep	IC_HALFLIFE=26
+6.183	2992.15	-56.13	keep	IC_HALFLIFE=13
+6.427	2051.05	-28.65	keep	biweekly rebalance
+5.378	1713.75	-18.94	discard	monthly rebalance (too few data points)
+5.919	2472.55	-32.37	discard	add reversal 1w + momentum 1m
+6.258	1919.49	-29.5	discard	IC_THRESHOLD=0.005
+5.991	1716.98	-30.86	discard	add vol_60d factor
+7.198	2548.8	-26.04	keep	top_n=75
+5.889	2122.79	-32.8	discard	top_n=60
+6.474	2391.53	-29.32	discard	top_n=85
+6.405	1409.78	-25.25	discard	disable correlation filter (27 factors)
+6.251	3209.71	-32.72	discard	IR-weighted instead of IC-weighted
+7.198	2548.8	-26.04	keep	train from 2018 (6yr) - same result simpler
+7.381	3731.28	-24.94	keep	rebalance Wednesday
+6.731	2258.58	-27.25	discard	forward_days=100
+5.805	2585.97	-34.39	discard	MIN_DV=5M (alpha in smaller stocks)
+4.512	1453.14	-48.08	discard	score-weighted portfolio (concentrates into outliers)
+6.947	4569.09	-28.28	discard	IC_HALFLIFE=8
+7.0	3595.26	-25.61	discard	MIN_PRICE=5
+6.626	2513.14	-32.84	discard	Friday rebalance
+7.707	6801.88	-17.88	keep	forward_days=150 (35 weeks)
+7.173	8383.08	-6.79	discard	forward_days=180 (too few data points)
+7.459	6195.21	-18.96	discard	top_n=65
+7.707	6801.88	-17.88	discard	VARIANCE_THRESHOLD=0.001 (no change)
+7.539	4428.77	-14.76	discard	every 3rd Wednesday (too few data points)
+6.561	6370.6	-27.72	discard	add 12m-skip-1m momentum
+6.965	5120.09	-40.21	discard	weekly Wednesday (more overlap worse DD)
+7.047	3705.08	-94.99	discard	daily rebalance (-95% DD)
+6.75	4286.6	-42.07	discard	biweekly Wed+Fri
+6.572	522.66	-5.13	discard	fwd=60 non-overlapping every 12wk (8 data points)
+5.727	54071.63	-48.52	discard	momentum only (3 factors)
+4.742	2383.64	-41.28	discard	fundamentals only (18 factors no momentum)
+6.137	4068.33	-27.16	discard	equal IC weights (sign only)
+7.694	6891.1	-17.88	discard	MAX_PRICE=5000 (no change)
+7.532	7059.97	-17.82	discard	IC_THRESHOLD=0.02 (20 factors)
+7.259	4157.91	-21.91	discard	squared IC weights
+7.45	5699.24	-19.05	discard	top_n=70

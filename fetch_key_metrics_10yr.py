@@ -12,13 +12,8 @@ def load_companies():
     with open('all_companies_ciks.json', 'r') as f:
         return json.load(f)
 
-def load_exchanges():
-    """Fetch exchange data from FMP stock list."""
-    resp = requests.get(f"https://financialmodelingprep.com/api/v3/stock/list?apikey={API_KEY}")
-    return {s['symbol']: s.get('exchangeShortName', '') for s in resp.json()}
-
 def get_key_metrics(symbol):
-    url = f"https://financialmodelingprep.com/api/v3/key-metrics/{symbol}?period=quarter&limit=4&apikey={API_KEY}"
+    url = f"https://financialmodelingprep.com/api/v3/key-metrics/{symbol}?period=quarter&limit=40&apikey={API_KEY}"
     try:
         response = requests.get(url, timeout=10)
         data = response.json()
@@ -30,13 +25,12 @@ def get_key_metrics(symbol):
         return symbol, []
 
 def setup_database():
-    conn = duckdb.connect('FMP_Databases/company_metrics__1yr.db')
+    conn = duckdb.connect('FMP_Databases/company_metrics_10yr.db')
     conn.execute("DROP TABLE IF EXISTS key_metrics")
     conn.execute("""
         CREATE TABLE key_metrics (
             symbol VARCHAR,
             cik VARCHAR,
-            exchange VARCHAR,
             date DATE,
             fiscal_year VARCHAR,
             period VARCHAR,
@@ -87,13 +81,13 @@ def setup_database():
     """)
     return conn
 
-def insert_metrics(conn, symbol, cik, exchange, metrics):
+def insert_metrics(conn, symbol, cik, metrics):
     for metric in metrics:
         if isinstance(metric, dict):
             conn.execute("""
-                INSERT INTO key_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO key_metrics VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                symbol, cik, exchange, metric.get('date'),
+                symbol, cik, metric.get('date'),
                 metric.get('fiscalYear'), metric.get('period'), metric.get('reportedCurrency'),
                 metric.get('marketCap'), metric.get('enterpriseValue'),
                 metric.get('evToSales'), metric.get('evToOperatingCashFlow'),
@@ -122,8 +116,6 @@ def insert_metrics(conn, symbol, cik, exchange, metrics):
 
 def main():
     companies = load_companies()
-    exchanges = load_exchanges()
-    print(f"Loaded {len(exchanges)} exchange mappings")
     conn = setup_database()
     
     batch_size = 750
@@ -141,8 +133,7 @@ def main():
             for future in as_completed(futures):
                 symbol, metrics = future.result()
                 company = next(c for c in batch if c['symbol'] == symbol)
-                exchange = exchanges.get(symbol, '')
-                insert_metrics(conn, symbol, company['cik'], exchange, metrics)
+                insert_metrics(conn, symbol, company['cik'], metrics)
                 processed += 1
                 
                 if processed % 100 == 0:

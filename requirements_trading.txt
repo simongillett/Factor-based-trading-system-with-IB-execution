@@ -1,0 +1,49 @@
+# Production Trading Environment Setup
+
+## Required Packages for IBKR Integration
+
+# Core trading packages
+ibapi>=9.81.1.post1
+ib-insync>=0.9.86
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+polars>=0.20.0
+
+# Database
+duckdb>=0.9.0
+sqlite3
+
+# Machine learning
+scikit-learn>=1.3.0
+
+# Scheduling and async
+schedule>=1.2.0
+asyncio
+threading
+
+# Risk management
+pyfolio>=0.9.2
+empyrical>=0.5.5
+
+# Logging and monitoring
+structlog>=23.1.0
+prometheus-client>=0.17.0
+
+# Configuration
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Backtesting (already have zipline)
+zipline-reloaded>=3.0.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2023.3
+requests>=2.31.0
+
+# Development
+pytest>=7.4.0
+black>=23.7.0
+flake8>=6.0.0

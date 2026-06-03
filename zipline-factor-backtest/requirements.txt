@@ -1,0 +1,8 @@
+duckdb
+pandas
+numpy
+scikit-learn
+zipline-reloaded
+polars
+tqdm
+pyarrow

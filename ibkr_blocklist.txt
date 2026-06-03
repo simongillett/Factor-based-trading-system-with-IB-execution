@@ -1,0 +1,8 @@
+# Symbols that failed on IBKR - OTC/foreign not supported
+TKPHF
+HTHIF
+AMCCF
+CAJFF
+DKILF
+OSCUF
+RSNHF
