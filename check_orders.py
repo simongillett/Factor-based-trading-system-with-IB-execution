@@ -41,7 +41,7 @@ def main():
     checker = OrderChecker()
     
     print("Connecting to check order status...")
-    checker.connect("127.0.0.1", 4002, 621)  # Same client ID
+    checker.connect("127.0.0.1", 4001, 621)  # Live trading
     
     time.sleep(2)
     

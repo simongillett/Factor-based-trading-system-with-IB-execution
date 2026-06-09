@@ -41,7 +41,7 @@ def main():
     args = p.parse_args()
 
     checker = ExecutionChecker()
-    checker.connect("127.0.0.1", 4002, 999)
+    checker.connect("127.0.0.1", 4001, 999)
     time.sleep(2)
 
     ef = ExecutionFilter()
